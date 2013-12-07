@@ -1,0 +1,4 @@
+wsucon
+======
+
+LUG WSUCon project
