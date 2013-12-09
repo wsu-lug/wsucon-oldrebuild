@@ -1,0 +1,8 @@
+.tmp
+.staging-jekyll
+dist
+node_modules
+bower_components
+.sass-cache
+*.lock
+credentials.json

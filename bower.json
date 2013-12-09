@@ -1,0 +1,8 @@
+{
+  "name": "WSUCon Website",
+  "dependencies": {
+    "jquery": "~1.10.0",
+    "modernizr": "~2.7.1"
+  },
+  "devDependencies": {}
+}
