@@ -1,8 +1,9 @@
 module.exports = function(grunt) {
 	'use strict';
 
+	var pkg = grunt.file.readJSON('package.json');
+
 	grunt.initConfig({
-		pkg: grunt.file.readJSON('package.json'),
 		bowerrc: grunt.file.readJSON('.bowerrc'),
 		credentials: grunt.file.readJSON('credentials.json'),
 		path: {
@@ -138,6 +139,15 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		humans_txt: {
+			generate: {
+				options: {
+					content: pkg.humans,
+					includeUpdateIn: 'site'
+				},
+				dest: '<%= path.dist %>/humans.txt'
+			}
+		},
 		clean: {
 			staging: '<%= path.stagingForJekyll %>',
 			tmp: '<%= path.tmp %>',
@@ -159,9 +169,8 @@ module.exports = function(grunt) {
 			'modernizr',
 			'rev',
 			'usemin',
-			'jekyll:build'
+			'jekyll:build',
+			'humans_txt'
 		]);
 	});
-
-	grunt.registerTask('test-build', ['useminPrepare', 'usemin']);
 };
