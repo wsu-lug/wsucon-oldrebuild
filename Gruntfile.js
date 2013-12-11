@@ -150,12 +150,19 @@ module.exports = function(grunt) {
 			}
 		},
 		connect: {
+			options: {
+				port: 8181,
+				open: true,
+				livereload: 35729
+			},
 			dev: {
 				options: {
-					port: 8181,
-					open: true,
-					base: '<%= path.dev %>',
-					livereload: 35729
+					base: '<%= path.dev %>'
+				}
+			},
+			dist: {
+				options: {
+					base: '<%= path.dist %>'
 				}
 			}
 		},
@@ -297,5 +304,11 @@ module.exports = function(grunt) {
 		}
 	});
 
-	grunt.registerTask('server', ['build:dev', 'connect:dev', 'watch']);
+	grunt.registerTask('server', function (target) {
+		target = target || 'dev';
+		if (target == 'dev')
+			grunt.task.run(['build:dev', 'connect:dev', 'watch']);
+		else
+			grunt.task.run(['build:dist', 'connect:dist:keepalive']);
+	});
 };
