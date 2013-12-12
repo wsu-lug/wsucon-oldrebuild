@@ -171,19 +171,23 @@ module.exports = function(grunt) {
 				files: '<%= path.src %>/sass/**',
 				tasks: 'css:dev',
 				options: {
-					livereload: '<%= connect.dev.options.livereload %>'
+					livereload: '<%= connect.options.livereload %>'
 				}
 			},
 			js: {
 				files: '<%= path.src %>/js/**',
 				tasks: 'js:dev',
 				options: {
-					livereload: '<%= connect.dev.options.livereload %>'
+					livereload: '<%= connect.options.livereload %>'
 				}
 			},
 			html: {
 				files: '<%= path.src %>/**/*.html',
 				tasks: 'html:dev'
+			},
+			posts: {
+				files: '<%= path.src %>/_posts/**',
+				tasks: ['clean:staging_posts', 'clean:dev_posts', 'copy:posts']
 			},
 			siteData: {
 				files: '<%= path.src %>/_data/**',
@@ -193,7 +197,7 @@ module.exports = function(grunt) {
 				files: '<%= path.stagingForJekyll %>/**',
 				tasks: 'jekyll-dev',
 				options: {
-					livereload: '<%= connect.dev.options.livereload %>'
+					livereload: '<%= connect.options.livereload %>'
 				}
 			}
 		},
@@ -209,8 +213,17 @@ module.exports = function(grunt) {
 		clean: {
 			staging: '<%= path.stagingForJekyll %>',
 			staging_css: '<%= path.stagingForJekyll %>/css/**',
-			staging_js: '<%= path.stagingForJekyll %>/js/*.js',
+			staging_js: '<%= path.stagingForJekyll %>/js/**',
 			staging_html: '<%= path.stagingForJekyll %>/**/*.html',
+			staging_posts: '<%= path.stagingForJekyll %>/_posts/**/*',
+			dev_css: '<%= path.dev %>/css/**',
+			dev_js: '<%= path.dev %>/js/**',
+			dev_posts: {
+				src: '<%= path.dev %>/*',
+				filter: function (path) { // Directories named after years
+					return grunt.file.isDir(path) && /\d{4}/.test(path);
+				}
+			},
 			dev: '<%= path.dev %>',
 			tmp: '<%= path.tmp %>',
 			dist: '<%= path.dist %>'
@@ -224,6 +237,8 @@ module.exports = function(grunt) {
 
 		if (target == 'dist') {
 			grunt.task.run('clean:staging_css');
+		} else {
+			grunt.task.run('clean:dev_css');
 		}
 
 		grunt.task.run([
@@ -237,13 +252,11 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('js', function (target) {
 		target = target || 'dist';
-		grunt.task.run([
-			'clean:staging_js',
-			'clean:tmp'
-		]);
 		switch (target) {
 			case 'dist':
 				grunt.task.run([
+					'clean:staging_js',
+					'clean:tmp',
 					'useminPrepare',
 					'concat',
 					'uglify',
@@ -252,7 +265,10 @@ module.exports = function(grunt) {
 				]);
 				break;
 			case 'dev':
-				grunt.task.run(['copy:js']);
+				grunt.task.run([
+					'clean:dev_js',
+					'copy:js'
+				]);
 				break;
 		}
 	});
@@ -281,6 +297,8 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('build', function (target) {
 		target = target || 'dist';
+
+		grunt.task.run('clean');
 
 		switch (target) {
 			case 'dist':
