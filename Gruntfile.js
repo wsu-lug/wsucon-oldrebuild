@@ -9,23 +9,25 @@ module.exports = function(grunt) {
 		path: {
 			src: 'src',
 			dist: 'dist',
+			dev: '.dev',
 			tmp: '.tmp',
 			stagingForJekyll: '.staging-jekyll'
 		},
 		compass: {
 			options: {
 				sassDir: '<%= path.src %>/sass',
-				cssDir: '<%= path.stagingForJekyll %>/css',
 				require: 'zurb-foundation'
 			},
-			development: {
+			dev: {
 				options: {
-					outputStyle: 'expanded'
+					outputStyle: 'expanded',
+					cssDir: '<%= path.dev %>/css'
 				}
 			},
-			production: {
+			dist: {
 				options: {
-					outputStyle: 'compressed'
+					outputStyle: 'compressed',
+					cssDir: '<%= path.stagingForJekyll %>/css'
 				}
 			}
 		},
@@ -35,9 +37,16 @@ module.exports = function(grunt) {
 			files: ['!<%= bowerrc.directory %>/**']
 		},
 		jekyll: {
-			build: {
+			options: {
+				src: '<%= path.stagingForJekyll %>'
+			},
+			dev: {
 				options: {
-					src: '<%= path.stagingForJekyll %>',
+					dest: '<%= path.tmp %>/jekyll'
+				}
+			},
+			dist: {
+				options: {
 					dest: '<%= path.dist %>'
 				}
 			}
@@ -73,11 +82,29 @@ module.exports = function(grunt) {
 				src: '_data/**',
 				dest: '<%= path.stagingForJekyll %>/'
 			},
-			index: {
+			htmlInRoot: {
 				expand: true,
 				cwd: '<%= path.src %>/',
 				src: '*.html',
 				dest: '<%= path.stagingForJekyll %>/'
+			},
+			tmpJekyll: {
+				expand: true,
+				cwd: '<%= path.tmp %>/jekyll/',
+				src: '**',
+				dest: '<%= path.dev %>/'
+			},
+			bower: {
+				expand: true,
+				cwd: '<%= path.src %>/',
+				src: 'bower_components/**',
+				dest: '<%= path.dev %>/'
+			},
+			js: {
+				expand: true,
+				cwd: '<%= path.src %>/',
+				src: 'js/**',
+				dest: '<%= path.dev %>/'
 			}
 		},
 		replace: {
@@ -99,20 +126,20 @@ module.exports = function(grunt) {
 			}
 		},
 		useminPrepare: {
-			html: '<%= path.stagingForJekyll %>/_layouts/default.html',
+			html: '<%= path.src %>/_layouts/default.html',
 			options: {
 				dest: '<%= path.stagingForJekyll %>'
 			}
 		},
 		rev: {
-			dist: {
-				files: {
-					src: [
-						'<%= path.stagingForJekyll %>/js/{,*/}*.js',
-						'<%= path.stagingForJekyll %>/css/{,*/}*.css',
-						'<%= path.stagingForJekyll %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
-					]
-				}
+			js: {
+				src: '<%= path.stagingForJekyll %>/js/{,*/}*.js'
+			},
+			css: {
+				src: '<%= path.stagingForJekyll %>/css/{,*/}*.css'
+			},
+			images: {
+				src: '<%= path.stagingForJekyll %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
 			}
 		},
 		usemin: {
@@ -122,20 +149,55 @@ module.exports = function(grunt) {
 				assetsDirs: ['<%= path.stagingForJekyll %>']
 			}
 		},
-		watch: {
+		connect: {
 			options: {
-				atBegin: true,
-				cwd: '<%= path.src %>'
+				port: 8181,
+				open: true,
+				livereload: 35729
 			},
-			css: {
-				files: 'sass/**',
-				tasks: 'compass:development'
+			dev: {
+				options: {
+					base: '<%= path.dev %>'
+				}
+			},
+			dist: {
+				options: {
+					base: '<%= path.dist %>'
+				}
+			}
+		},
+		watch: {
+			sass: {
+				files: '<%= path.src %>/sass/**',
+				tasks: 'css:dev',
+				options: {
+					livereload: '<%= connect.options.livereload %>'
+				}
+			},
+			js: {
+				files: '<%= path.src %>/js/**',
+				tasks: 'js:dev',
+				options: {
+					livereload: '<%= connect.options.livereload %>'
+				}
+			},
+			html: {
+				files: '<%= path.src %>/**/*.html',
+				tasks: 'html:dev'
+			},
+			posts: {
+				files: '<%= path.src %>/_posts/**',
+				tasks: ['clean:staging_posts', 'clean:dev_posts', 'copy:posts']
+			},
+			siteData: {
+				files: '<%= path.src %>/_data/**',
+				tasks: 'copy:siteData'
 			},
 			jekyll: {
-				files: ['<%= path.stagingForJekyll %>/**'],
-				tasks: 'jekyll:build',
+				files: '<%= path.stagingForJekyll %>/**',
+				tasks: 'jekyll-dev',
 				options: {
-					livereload: true
+					livereload: '<%= connect.options.livereload %>'
 				}
 			}
 		},
@@ -150,6 +212,19 @@ module.exports = function(grunt) {
 		},
 		clean: {
 			staging: '<%= path.stagingForJekyll %>',
+			staging_css: '<%= path.stagingForJekyll %>/css/**',
+			staging_js: '<%= path.stagingForJekyll %>/js/**',
+			staging_html: '<%= path.stagingForJekyll %>/**/*.html',
+			staging_posts: '<%= path.stagingForJekyll %>/_posts/**/*',
+			dev_css: '<%= path.dev %>/css/**',
+			dev_js: '<%= path.dev %>/js/**',
+			dev_posts: {
+				src: '<%= path.dev %>/*',
+				filter: function (path) { // Directories named after years
+					return grunt.file.isDir(path) && /\d{4}/.test(path);
+				}
+			},
+			dev: '<%= path.dev %>',
 			tmp: '<%= path.tmp %>',
 			dist: '<%= path.dist %>'
 		}
@@ -157,20 +232,101 @@ module.exports = function(grunt) {
 
 	require('load-grunt-tasks')(grunt);
 
-	grunt.registerTask('build', function (environment) {
+	grunt.registerTask('css', function (target) {
+		target = target || 'dist';
+
+		if (target == 'dist') {
+			grunt.task.run('clean:staging_css');
+		} else {
+			grunt.task.run('clean:dev_css');
+		}
+
 		grunt.task.run([
-			'clean',
-			'compass:' + (environment || 'production'),
-			'copy',
-			'replace',
-			'useminPrepare',
-			'concat',
-			'uglify',
-			'modernizr',
-			'rev',
-			'usemin',
-			'jekyll:build',
-			'humans_txt'
+			'compass:' + target
 		]);
+
+		if (target == 'dist') {
+			grunt.task.run('rev:css');
+		}
+	});
+
+	grunt.registerTask('js', function (target) {
+		target = target || 'dist';
+		switch (target) {
+			case 'dist':
+				grunt.task.run([
+					'clean:staging_js',
+					'clean:tmp',
+					'useminPrepare',
+					'concat',
+					'uglify',
+					'modernizr',
+					'rev:js'
+				]);
+				break;
+			case 'dev':
+				grunt.task.run([
+					'clean:dev_js',
+					'copy:js'
+				]);
+				break;
+		}
+	});
+
+	grunt.registerTask('html', function (target) {
+		grunt.task.run([
+			'clean:staging_html',
+			'copy:layouts',
+			'copy:includes',
+			'copy:posts',
+			'copy:drafts',
+			'copy:siteData',
+			'copy:htmlInRoot',
+			'replace'
+		]);
+
+		if (target == 'dist') {
+			grunt.task.run('usemin');
+		}
+	});
+
+	grunt.registerTask('jekyll-dev', [ // Jekyll destroys the destination, so we emulate a softer copy.
+		'jekyll:dev',
+		'copy:tmpJekyll'
+	])
+
+	grunt.registerTask('build', function (target) {
+		target = target || 'dist';
+
+		grunt.task.run('clean');
+
+		switch (target) {
+			case 'dist':
+				grunt.task.run([
+					'css:dist',
+					'js:dist',
+					'html:dist',
+					'jekyll:dist',
+					'humans_txt'
+				]);
+				break;
+			case 'dev':
+				grunt.task.run([
+					'css:dev',
+					'js:dev',
+					'html:dev',
+					'jekyll-dev',
+					'copy:bower'
+				]);
+				break;
+		}
+	});
+
+	grunt.registerTask('server', function (target) {
+		target = target || 'dev';
+		if (target == 'dev')
+			grunt.task.run(['build:dev', 'connect:dev', 'watch']);
+		else
+			grunt.task.run(['build:dist', 'connect:dist:keepalive']);
 	});
 };
