@@ -1,8 +1,9 @@
 {
   "name": "WSUCon Website",
   "dependencies": {
-    "jquery": "~1.10.0",
-    "modernizr": "~2.7.1"
+    "jquery": "~2",
+    "modernizr": "~2",
+    "foundation": "zurb/bower-foundation#~5"
   },
   "devDependencies": {}
 }

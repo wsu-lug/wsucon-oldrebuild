@@ -16,7 +16,7 @@ module.exports = function(grunt) {
 		compass: {
 			options: {
 				sassDir: '<%= path.src %>/sass',
-				require: 'zurb-foundation'
+				importPath: '<%= path.src %>/bower_components/foundation/scss'
 			},
 			dev: {
 				options: {

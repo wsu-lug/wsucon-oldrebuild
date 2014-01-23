@@ -1,0 +1,19 @@
+.page {
+	&> header, &> .torso, &> footer {
+		@include grid-row;
+	}
+}
+
+.torso {
+	&> nav {
+		@include grid-column(3);
+	}
+
+	&> main {
+		@include grid-column(6);
+	}
+
+	&> .sponsor-sidebar {
+		@include grid-column(3);
+	}
+}
