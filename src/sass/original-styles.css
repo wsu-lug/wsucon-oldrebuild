@@ -1,0 +1,453 @@
+/* -------------------------------- */
+/* ---------- WSUCON CSS ---------- */
+/* -------------------------------- */
+
+html{
+    height: 100%;
+    margin: 0px;
+    padding: 0px;    
+}
+
+body{
+    background-color: #222222;
+    background-image: url(/images/alternate.png);
+    background-repeat: repeat;
+    background-position: left top;
+    color: lightgrey;
+    font-family: "Lucida Grande","Lucida Sans Unicode",Arial,san-serif;
+    font-size: small;
+    height:100%;
+    line-height: 1.5em;
+    margin: 0px;
+    min-width: 900px;
+    padding: 0px;
+    text-align: center;
+}
+
+a{
+    color: #88FF00;
+    font-family: sans-serif;
+    text-decoration:none;
+}
+
+a.logo{
+    text-decoration:none;
+}
+a img{
+    border: 0;
+}
+span.welcome{
+    font-weight: bold;
+    color: #FF0000;
+}
+h1{ 
+    text-align: center;
+}
+h2{
+    text-align: center;
+}
+td{
+    color: #CCCCCC;
+}
+b {
+    color: #FF7800;
+}
+th{
+    color: #FF4500;
+}
+p{
+    margin: 0px;
+    padding: 5px 0px 5px;
+}
+p.hidden{
+    color: #4F4F4F;
+}
+.clear{
+    clear: both;
+}
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.href{
+}
+
+.column{
+    position: relative;
+    float: left;
+}
+
+.triforce{
+    padding: 0em 8em;	
+}
+
+.maintable{
+    border: 0px;
+    margin-left: 0;
+    width: 100%;
+}
+
+/* triangular classifications */
+.arrow-up {
+    width: 0;
+    height: 0;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    border-bottom: 16px solid black;
+}
+
+.arrow-down {
+    min-width: 50;
+    min-height: 50;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    border-top: 16px solid black;
+}
+
+.arrow-right {
+    width: 0;
+    height: 0;
+    border-top: 16px solid transparent;
+    border-bottom: 16px solid transparent;
+    border-left: 16px solid black;
+}
+
+.arrow-left {
+    width: 0;
+    height: 0;
+    border-top: 16px solid transparent;
+    border-bottom: 16px solid transparent; 
+    border-right: 16px solid black;
+}
+
+
+/* -------------------------------- */
+/* ---------- CONTAINER ----------- */
+/* -------------------------------- */
+#inner-container{
+    border: 0 none;
+    clear: both;
+    margin: 0 auto;
+    max-width: 1920px;
+    padding: 3em 0px 0px 0px;
+    position: relative;
+}
+
+#center-container{
+    padding-left: 170px;
+    padding-right: 170px;
+}
+
+#mfcontainer{
+    height: 100%;
+    padding: 16px;
+}
+
+#rfcontainer{
+    height: 100%;
+    margin-right: -170px;
+    float: left;
+    text-align: left;
+    margin-top: 16px;
+    width: 170px;
+}
+
+#lfcontainer{
+    border-radius: 1px;
+    box-shadow: 1px 2px 5px 3px black;
+    height: 100%;
+    margin-left: -100%;
+    margin-top: 16px;
+    right: 170px;
+    width: 170px;
+    background-color: #4F4F4F;
+    text-align: left;
+}
+
+
+/* -------------------------------- */
+/* ---------- CONTENT ------------- */
+/* -------------------------------- */
+#content{
+    background-color: #4F4F4F;
+    border-radius: 1px;
+    box-shadow: 1px 2px 5px 3px black;
+    margin: auto;
+    padding: 4px 12px 12px;
+    text-align: left;
+    /*color: black;
+    padding: 8px;
+    margin: auto;
+    width: 780px;
+    clear: both;*/
+}
+
+
+/* -------------------------------- */
+/* ---------- COMMUNITIES --------- */
+/* -------------------------------- */
+#communities{
+    padding: 40px 0 0 0;
+}
+
+
+/* -------------------------------- */
+/* ---------- FOOTER -------------- */
+/* -------------------------------- */
+#footer{
+    color: black;
+    padding: 8px;
+    margin: auto;
+    clear: both;
+    overflow: hidden;
+}
+
+#footer a{
+    color: black;
+}
+
+
+/* -------------------------------- */
+/* ---------- HEADER -------------- */
+/* -------------------------------- */
+#header{
+    padding-left: 116px;
+    padding-right: 116px;
+    height: 208px;
+}
+
+#headerbanner{
+    height: 208px;
+    width: 651px;
+    margin: auto;
+    text-align: center;
+}
+
+#headercenter{
+    background-image: url("/images/banner_bg3.png");
+    background-repeat: repeat;
+    padding-top: 8px;
+    text-align: center;
+    height: 200px;
+    width: 100%;
+}
+
+#headerleft{
+    background-image: url("/images/banner_bgl3.png");
+    margin-left: -100%;
+    width: 116px;
+    right: 116px;
+    height: 208px;
+}
+
+#headerright{
+    background-image: url("/images/banner_bgr3.png");
+    margin-right: -116px;
+    width: 116px;
+    height: 208px;
+}
+
+
+/* -------------------------------- */
+/* ---------- HIDDEN-BUFFER ------- */
+/* -------------------------------- */
+#hidden-buffer{
+    color: #4F4F4F;
+    max-height: 18px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* -------------------------------- */
+/* ---------- NAVBAR -------------- */
+/* -------------------------------- */
+#navbar{
+    background-color: #4F4F4F;
+    border-radius: 1px;
+    box-shadow: 1px 2px 5px 3px black;
+    margin-top: 16px;
+    float: left;
+    text-align: left;
+    clear: both;
+    padding-right: 8px;
+}
+
+ul#sliding-navigation  
+{  
+    list-style: none;  
+    font-size: .85em;  
+    padding: 0;
+}  
+ul#sliding-navigation li.sliding-element h3,  
+ul#sliding-navigation li.sliding-element a  
+{  
+    display: block;  
+    padding: 5px 15px;  
+    margin: 0;  
+    margin-bottom: 5px;  
+}  
+ul#sliding-navigation li.sliding-element h3  
+{  
+    color: #fff;  
+    background: #333;  
+    border: 1px solid #1a1a1a;  
+    font-weight: normal;  
+}  
+ul#sliding-navigation li.sliding-element a  
+{  
+    color: #999;  
+    background: #222;  
+    border: 1px solid #1a1a1a;  
+    text-decoration: none;  
+}  
+ul#sliding-navigation li.sliding-element a:hover { color: #C4CE00; }
+
+
+/* -------------------------------- */
+/* ---------- OUTER-CONTAINER ----- */
+/* -------------------------------- */
+#outer-container{
+    clear: both;
+    border-width: 0px;
+    height: 100%;
+    padding: 0px 8em;
+    min-width: 1048px;
+}
+
+#leftback{
+    background-color: #d5d5e5;
+    height: 100%;
+    opacity: .16;
+    position: fixed;
+    top: 0;
+    width: 3em;
+}
+
+#topback{
+    background-color: gray;
+    width: 100%;
+    height: 4em;
+    min-height: 4em;
+    position: absolute;
+    opacity: .24;
+    width: 100%;
+}
+
+
+/* -------------------------------- */
+/* ---------- POLAROIDS ----------- */
+/* -------------------------------- */
+ul.polaroids {
+    list-style: none outside none;
+}
+ul.polaroids img:after {
+    content: attr(title);
+}
+
+/* By default, we tilt all our images -2 degrees */
+ul.polaroids img{
+    display: block;
+    width: 160px;
+    /*-webkit-transform: rotate(-1deg);
+    -moz-transform: rotate(-1deg);*/
+    -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.5);
+    -moz-box-shadow: 0 3px 6px rgba(0,0,0,.5);
+    margin: 2px;
+    border: 2px solid #012;
+    float: left;
+}
+
+/* Rotate all even images 2 degrees */
+ul.polaroids li:nth-child(even) a {
+    -webkit-transform: rotate(1deg);
+    -moz-transform: rotate(1deg);
+}
+
+/* Don't rotate every third image, but offset its position */
+ul.polaroids li:nth-child(3n) a {
+    -webkit-transform: none;
+    -moz-transform: none;
+    position: relative;
+    top: -4px;
+}
+
+/* Rotate every fifth image by 5 degrees and offset it */
+ul.polaroids li:nth-child(5n) a {
+    -webkit-transform: rotate(2deg);
+    -moz-transform: rotate(2deg);
+    position: relative;
+    right: 4px;
+}
+
+/* Keep default rotate for every eighth, but offset it */
+ul.polaroids li:nth-child(8n) a {
+    position: relative;
+    top: 8px;
+    right: 4px;
+}
+
+/* Keep default rotate for every eleventh, but offset it */
+ul.polaroids li:nth-child(11n) a {
+    position: relative;
+    top: 3px;
+    left: -5px;
+}
+
+/* Scale the images on hover, add transitions for smoothing things out, and ensure the hover appears on top */
+ul.polaroids img:hover {
+    -webkit-transform: scale(2.25);
+    -moz-transform: scale(2.25);
+    position: relative;
+    z-index: 5;
+}
+
+/* Add drop shadows and smooth out the transition (Safari only) */
+ul.polaroids img {
+    -webkit-transition: -webkit-transform .15s linear;
+    -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.25);
+    -moz-box-shadow: 0 3px 6px rgba(0,0,0,.25);
+}
+/* On hover, darken the shadows a bit */
+
+
+/* -------------------------------- */
+/* ---------- TOPBAR -------------- */
+/* -------------------------------- */
+#topbar{
+    border-top-color: black;
+    border-top-width: 1px;
+    box-shadow: 1px 1px 3px 2px black;
+    right: 8em;
+    height: 2em;
+    margin: auto;
+    position: fixed;
+    font-family: "Myriad Pro";
+    z-index: 101;
+    padding: 0em 2em;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    opacity: .64;
+    background-color: gray;
+}
+
+
+/* -------------------------------- */
+/* ---------- TOPCONTAINER -------- */
+/* -------------------------------- */
+#topcontainer{
+    max-width: 2048px;
+    clear: both;
+    text-align: right;
+    color: white; 
+}
+
+#topcontainer a{
+    color: white;
+    font-family: sans-serif-bold;
+    font-size: large;
+}

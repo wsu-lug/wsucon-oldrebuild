@@ -16,7 +16,7 @@ module.exports = function(grunt) {
 		compass: {
 			options: {
 				sassDir: '<%= path.src %>/sass',
-				require: 'zurb-foundation'
+				importPath: '<%= path.src %>/bower_components/foundation/scss'
 			},
 			dev: {
 				options: {
@@ -88,6 +88,12 @@ module.exports = function(grunt) {
 				src: '*.html',
 				dest: '<%= path.stagingForJekyll %>/'
 			},
+			images: {
+				expand: true,
+				cwd: '<%= path.src %>/',
+				src: 'images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+				dest: '<%= path.stagingForJekyll %>/'
+			},
 			tmpJekyll: {
 				expand: true,
 				cwd: '<%= path.tmp %>/jekyll/',
@@ -147,6 +153,16 @@ module.exports = function(grunt) {
 			css: ['<%= path.stagingForJekyll %>/css/*.css'],
 			options: {
 				assetsDirs: ['<%= path.stagingForJekyll %>']
+			}
+		},
+		imagemin: {
+			dist: {
+				files: [{
+					expand: true,
+					cwd: '<%= path.stagingForJekyll %>/',
+					src: ['**/*.{png,jpg,gif}'],
+					dest: '<%= path.stagingForJekyll %>/'
+				}]
 			}
 		},
 		connect: {
@@ -215,6 +231,7 @@ module.exports = function(grunt) {
 			staging_css: '<%= path.stagingForJekyll %>/css/**',
 			staging_js: '<%= path.stagingForJekyll %>/js/**',
 			staging_html: '<%= path.stagingForJekyll %>/**/*.html',
+			staging_images: '<%= path.stagingForJekyll %>/images/**',
 			staging_posts: '<%= path.stagingForJekyll %>/_posts/**/*',
 			dev_css: '<%= path.dev %>/css/**',
 			dev_js: '<%= path.dev %>/js/**',
@@ -290,6 +307,17 @@ module.exports = function(grunt) {
 		}
 	});
 
+	grunt.registerTask('images', function (target) {
+		grunt.task.run([
+			'clean:staging_images',
+			'copy:images'
+		]);
+
+		if (target == 'dist') {
+			grunt.task.run('imagemin');
+		}
+	});
+
 	grunt.registerTask('jekyll-dev', [ // Jekyll destroys the destination, so we emulate a softer copy.
 		'jekyll:dev',
 		'copy:tmpJekyll'
@@ -306,6 +334,7 @@ module.exports = function(grunt) {
 					'css:dist',
 					'js:dist',
 					'html:dist',
+					'images:dist',
 					'jekyll:dist',
 					'humans_txt'
 				]);
@@ -315,6 +344,7 @@ module.exports = function(grunt) {
 					'css:dev',
 					'js:dev',
 					'html:dev',
+					'images:dev',
 					'jekyll-dev',
 					'copy:bower'
 				]);
