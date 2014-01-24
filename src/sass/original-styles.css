@@ -9,51 +9,51 @@ html{
 }
 
 body{
-	background-color: #222222;
-	background-image: url(/images/alternate.png);
-	background-repeat: repeat;
-	background-position: left top;
+    background-color: #222222;
+    background-image: url(/images/alternate.png);
+    background-repeat: repeat;
+    background-position: left top;
     color: lightgrey;
-	font-family: "Lucida Grande","Lucida Sans Unicode",Arial,san-serif;
-	font-size: small;
-	height:100%;
-	line-height: 1.5em;
-	margin: 0px;
-	min-width: 900px;
-	padding: 0px;
+    font-family: "Lucida Grande","Lucida Sans Unicode",Arial,san-serif;
+    font-size: small;
+    height:100%;
+    line-height: 1.5em;
+    margin: 0px;
+    min-width: 900px;
+    padding: 0px;
     text-align: center;
 }
 
 a{
-	color: #88FF00;
-	font-family: sans-serif;
+    color: #88FF00;
+    font-family: sans-serif;
     text-decoration:none;
 }
 
 a.logo{
-	text-decoration:none;
+    text-decoration:none;
 }
 a img{
-	border: 0;
+    border: 0;
 }
 span.welcome{
-	font-weight: bold;
-	color: #FF0000;
+    font-weight: bold;
+    color: #FF0000;
 }
 h1{ 
-	text-align: center;
+    text-align: center;
 }
 h2{
     text-align: center;
 }
 td{
-	color: #CCCCCC;
+    color: #CCCCCC;
 }
 b {
     color: #FF7800;
 }
 th{
-	color: #FF4500;
+    color: #FF4500;
 }
 p{
     margin: 0px;
@@ -77,51 +77,51 @@ p.hidden{
 }
 
 .column{
-	position: relative;
-	float: left;
+    position: relative;
+    float: left;
 }
 
 .triforce{
-	padding: 0em 8em;	
+    padding: 0em 8em;	
 }
 
 .maintable{
-	border: 0px;
-	margin-left: 0;
-	width: 100%;
+    border: 0px;
+    margin-left: 0;
+    width: 100%;
 }
 
 /* triangular classifications */
 .arrow-up {
-	width: 0;
-	height: 0;
-	border-left: 16px solid transparent;
-	border-right: 16px solid transparent;
-	border-bottom: 16px solid black;
+    width: 0;
+    height: 0;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    border-bottom: 16px solid black;
 }
 
 .arrow-down {
-	min-width: 50;
-	min-height: 50;
-	border-left: 16px solid transparent;
-	border-right: 16px solid transparent;
-	border-top: 16px solid black;
+    min-width: 50;
+    min-height: 50;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    border-top: 16px solid black;
 }
 
 .arrow-right {
-	width: 0;
-	height: 0;
-	border-top: 16px solid transparent;
-	border-bottom: 16px solid transparent;
-	border-left: 16px solid black;
+    width: 0;
+    height: 0;
+    border-top: 16px solid transparent;
+    border-bottom: 16px solid transparent;
+    border-left: 16px solid black;
 }
 
 .arrow-left {
-	width: 0;
-	height: 0;
-	border-top: 16px solid transparent;
-	border-bottom: 16px solid transparent; 
-	border-right: 16px solid black;
+    width: 0;
+    height: 0;
+    border-top: 16px solid transparent;
+    border-bottom: 16px solid transparent; 
+    border-right: 16px solid black;
 }
 
 
@@ -129,35 +129,24 @@ p.hidden{
 /* ---------- CONTAINER ----------- */
 /* -------------------------------- */
 #inner-container{
-    padding: 3em 0px 0px 0px;
     border: 0 none;
-    max-width: 2048px;
-    position: relative;
     clear: both;
+    margin: 0 auto;
+    max-width: 1920px;
+    padding: 3em 0px 0px 0px;
+    position: relative;
 }
 
-
-/* -------------------------------- */
-/* ---------- CENTER-CONTAINER ---- */
-/* -------------------------------- */
 #center-container{
     padding-left: 170px;
     padding-right: 170px;
 }
 
-
-/* -------------------------------- */
-/* ---------- MFCONTAINER --------- */
-/* -------------------------------- */
 #mfcontainer{
     height: 100%;
     padding: 16px;
 }
 
-
-/* -------------------------------- */
-/* ---------- RFCONTAINER --------- */
-/* -------------------------------- */
 #rfcontainer{
     height: 100%;
     margin-right: -170px;
@@ -167,10 +156,6 @@ p.hidden{
     width: 170px;
 }
 
-
-/* -------------------------------- */
-/* ---------- LFCONTAINER --------- */
-/* -------------------------------- */
 #lfcontainer{
     border-radius: 1px;
     box-shadow: 1px 2px 5px 3px black;
@@ -235,10 +220,6 @@ p.hidden{
     height: 208px;
 }
 
-
-/* -------------------------------- */
-/* ---------- HEADER BANNER ------- */
-/* -------------------------------- */
 #headerbanner{
     height: 208px;
     width: 651px;
@@ -246,10 +227,6 @@ p.hidden{
     text-align: center;
 }
 
-
-/* -------------------------------- */
-/* ---------- HEADER CENTER ------- */
-/* -------------------------------- */
 #headercenter{
     background-image: url("/images/banner_bg3.png");
     background-repeat: repeat;
@@ -259,10 +236,6 @@ p.hidden{
     width: 100%;
 }
 
-
-/* -------------------------------- */
-/* ---------- HEADER LEFT --------- */
-/* -------------------------------- */
 #headerleft{
     background-image: url("/images/banner_bgl3.png");
     margin-left: -100%;
@@ -271,10 +244,6 @@ p.hidden{
     height: 208px;
 }
 
-
-/* -------------------------------- */
-/* ---------- HEADER RIGHT -------- */
-/* -------------------------------- */
 #headerright{
     background-image: url("/images/banner_bgr3.png");
     margin-right: -116px;
@@ -348,7 +317,6 @@ ul#sliding-navigation li.sliding-element a:hover { color: #C4CE00; }
     height: 100%;
     padding: 0px 8em;
     min-width: 1048px;
-    max-width: 1920px;
 }
 
 #leftback{
